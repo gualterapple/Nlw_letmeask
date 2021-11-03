@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import { useHistory } from 'react-router-dom';
 
 import illustrationImg from '../assets/images/illustration.svg';
@@ -8,12 +10,14 @@ import '../styles/auth.scss';
 import { Button } from '../components/Button';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, firebase } from '../services/firebase';
+
+import { TesteContext } from '../App';
+
 export function Home()
 {
 
-    function SignIn(){}
-
     const history = useHistory();
+    const { value, setValue } = useContext(TesteContext);
 
     function handleCreateRoom()
     {
@@ -33,6 +37,7 @@ export function Home()
                 <p>Tire dúvidas da sua audiência em tempo-real</p>
             </aside>
             <main>
+                <h1>{value}</h1>
                 <div className="main-content">
                     <img src={logoImg} alt="letmeask" />
                     <button onClick={handleCreateRoom} className="create-room">

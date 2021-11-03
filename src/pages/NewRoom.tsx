@@ -5,9 +5,13 @@ import logoImg from '../assets/images/logo.svg';
 
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
+import { useContext } from 'react';
+import { TesteContext } from '../App';
 
 export function NewRoom()
 {
+    const { value, setValue } = useContext(TesteContext);
+
     return(
         <div id="page-auth">
             <aside>
@@ -16,6 +20,7 @@ export function NewRoom()
                 <p>Tire dúvidas da sua audiência em tempo-real</p>
             </aside>
             <main>
+                <h1>{value}</h1>
                 <div className="main-content">
                     <img src={logoImg} alt="letmeask" />
                     <h2>Criar uma nova sala</h2>
