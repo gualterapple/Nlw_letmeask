@@ -26,7 +26,7 @@ export function Home()
         history.push('/rooms/new');
     }
 
-    async function handleJoinRoom(event:FormEvent)
+    function handleJoinRoom(event:FormEvent)
     {
         event.preventDefault();
         if(roomCode.trim() === '')
@@ -37,7 +37,7 @@ export function Home()
         if (snapshot.exists()) {
             history.push(`/rooms/${roomCode}`);
         } else {
-            console.log("No data available");
+            console.log("Room does not exists");
         }
         }).catch((error) => {
         console.error(error);
