@@ -19,6 +19,7 @@ import {
 
 import "../styles/room.scss";
 import { getAuth } from "firebase/auth";
+import { Question } from "../components/Question";
 
 type RoomParams = {
   id: string;
@@ -54,7 +55,7 @@ export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const [newQuestion, setNewQuestion] = useState("");
-  const [quetions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -124,7 +125,7 @@ export function Room() {
       <div className="main-room-page">
         <div className="room-title">
           <h1>Sala {title}</h1>
-          {quetions.length > 0 && <span className="quetions">{quetions.length} pergunta(s)</span>}
+          {questions.length > 0 && <span className="quetions">{questions.length} pergunta(s)</span>}
         </div>
         <form onSubmit={handleSendQuestion}>
           <textarea
@@ -148,6 +149,15 @@ export function Room() {
             </Button>
           </div>
         </form>
+        <div className="question-lis">
+          {questions.map(question => { 
+            return (<Question
+            key= { question.id }
+            content = { question.content }
+            author = { question.author }
+            />);
+          })}
+        </div>
       </div>
     </div>
   );
