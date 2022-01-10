@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import logoImg from "../assets/images/logo.svg";
 import deleteImg from "../assets/images/delete.svg";
@@ -13,6 +13,7 @@ import {
   ref,
   remove,
   set,
+  update,
 } from "firebase/database";
 
 import "../styles/room.scss";
@@ -26,11 +27,22 @@ type RoomParams = {
 export function AdminRoom() {
   const { user } = useAuth();
 
+  const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const [newQuestion, setNewQuestion] = useState("");
 
   const { questions, title } = UseRoom(roomId);
+
+  async function handleEndRoom(){
+    const db = getDatabase();
+    const newLike = ref(db, `rooms/${roomId}`);
+    await update(newLike, {
+      endedAt: new Date()
+    });
+
+    history.push('/');
+  }
 
   async function handleOnDeleteQuestion(questionId: string)
   {
@@ -77,7 +89,7 @@ export function AdminRoom() {
           <img src={logoImg} alt="letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined>Encerrar sala</Button>
+            <Button onClick={handleEndRoom} isOutlined>Encerrar sala</Button>
           </div>
         </div>
       </header>

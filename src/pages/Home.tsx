@@ -34,6 +34,12 @@ export function Home()
 
         const dbRef = ref(getDatabase());
         get(child(dbRef, `rooms/${roomCode}`)).then((snapshot) => {
+
+        if(snapshot.val().endedAt){
+            alert('Room already closed');
+            return;
+        }
+
         if (snapshot.exists()) {
             history.push(`/rooms/${roomCode}`);
         } else {
