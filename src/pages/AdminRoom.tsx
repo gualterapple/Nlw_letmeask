@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import logoImg from "../assets/images/logo.svg";
+import deleteImg from "../assets/images/delete.svg";
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
 
@@ -10,6 +11,7 @@ import {
   getDatabase,
   push,
   ref,
+  remove,
   set,
 } from "firebase/database";
 
@@ -29,6 +31,17 @@ export function AdminRoom() {
   const [newQuestion, setNewQuestion] = useState("");
 
   const { questions, title } = UseRoom(roomId);
+
+  async function handleOnDeleteQuestion(questionId: string)
+  {
+    if(window.confirm('Tem certeza que dejesa excluir esta pergunta?'))
+    {
+      const db = getDatabase();
+      const newLike = ref(db, `rooms/${roomId}/quetions/${questionId}`);
+      await remove(newLike);
+    }
+    
+  }
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -79,8 +92,13 @@ export function AdminRoom() {
             return (<Question
             key= { question.id }
             content = { question.content }
-            author = { question.author }
-            />);
+            author = { question.author }>
+              <button
+              type="button"
+              onClick={()=> handleOnDeleteQuestion(question.id)}>
+                <img src={deleteImg} alt="Ver pergunta" />
+              </button>
+            </Question>);
           })}
         </div>
       </div>

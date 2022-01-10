@@ -64,7 +64,7 @@ export function Room() {
     if(likeId){
       const db = getDatabase();
       const newLike = ref(db, `rooms/${roomId}/quetions/${questionId}/likes`);
-      const newLikeRef = await remove(newLike);
+      await remove(newLike);
     }
     else
     {
