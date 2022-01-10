@@ -64,7 +64,7 @@ export function AdminRoom() {
           <img src={logoImg} alt="letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button>Encerrar sala</Button>
+            <Button isOutlined>Encerrar sala</Button>
           </div>
         </div>
       </header>
@@ -74,7 +74,7 @@ export function AdminRoom() {
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span className="quetions">{questions.length} pergunta(s)</span>}
         </div>
-        <div className="question-lis">
+        <div className="question-list">
           {questions.map(question => { 
             return (<Question
             key= { question.id }
@@ -88,6 +88,3 @@ export function AdminRoom() {
   );
 }
 
-function updateStarCount(postElement: any, data: any) {
-  throw new Error("Function not implemented.");
-}

@@ -95,11 +95,12 @@ export function Room() {
         </form>
         <div className="question-lis">
           {questions.map(question => { 
-            return (<Question
-            key= { question.id }
-            content = { question.content }
-            author = { question.author }
-            />);
+            return (
+              <Question
+                key= { question.id }
+                content={question.content}
+                author={question.author}></Question>
+              );
           })}
         </div>
       </div>
